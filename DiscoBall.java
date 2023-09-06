@@ -1,3 +1,4 @@
+
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.apache.batik.util.XMLResourceDescriptor;
 import org.w3c.dom.Element;
@@ -12,41 +13,73 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.LinkedList;
 
+import ListParser.java;
+import disco-ball-app.ListParser;
+import disco-ball-app.PathExtractor;
+
 
 public class DiscoBall {
     private SVGDocument svgDocument;
+    private LinkedList<Node>[] rings;
 
     // constructor for DiscoBall
     public DiscoBall(String svgFilePath) {
         this.svgDocument = loadSVGDocument(svgFilePath);
-        LinkedList[] rings = new LinkedList[21];
-        populateRings();
+        ListParser listParser = new ListParser();
+        listParser.readID();
+        rings = listParser.getLinkedListArray();
     }
 
-    // implement populateRings() method
-    public populateRings() {
-        // for each ring in the disco ball
-        for (int i = 0; i < 21; i++) {
-            // create a new linked list
-            LinkedList<Node> ring = new LinkedList<Node>();
-            // add the first node to the linked list
-            ring.add(new Node("0"));
-            // for each square in the ring
-            for (int j = 1; j < 21; j++) {
-                // add a new node to the linked list
-                ring.add(new Node(Integer.toString(j)));
+    public DiscoBall(String svgFilePath, int numRings) {
+        this.svgDocument = loadSVGDocument(svgFilePath);
+        ListParser listParser = new ListParser(numRings);
+        listParser.readID();
+        rings = listParser.getLinkedListArray();
+    }
+
+
+    public void changeRingColorSVG(int ringIndex, String colorHex) {
+        LinkedList<Node> ring = rings[ringIndex];
+
+        if (ring != null) {
+            for (Node node : ring) {
+                String squareId = node.getId();
+                Element squareElement = findSquareElement(squareId);
+
+                if (squareElement != null) {
+                    squareElement.setAttribute("fill", colorHex); // Update the fill color
+                }
             }
-            // add the linked list to the array
-            rings[i] = ring;
         }
     }
 
-    public void changeRingColor(int ringIndex, String colorHex) {
-        NodeList ringElements = findRingElements();
-        Element targetRing = (Element) ringElements.item(ringIndex);
+    private Element findSquareElement(String squareId) {
+        NodeList rectElements = svgDocument.getElementsByTagName("rect");
+        
+        for (int i = 0; i < rectElements.getLength(); i++) {
+            Element rectElement = (Element) rectElements.item(i);
+            NamedNodeMap attributes = rectElement.getAttributes();
+            
+            for (int j = 0; j < attributes.getLength(); j++) {
+                if (attributes.item(j).getNodeValue().equals(squareId)) {
+                    return rectElement;
+                }
+            }
+        }
+        
+        return null;
+    }
 
-        // Modify the fill attribute of the target ring element
-        targetRing.setAttribute("fill", colorHex);
+
+
+    public void changeRingColor(int ringIndex, String colorHex) {
+        LinkedList<Node> ring = rings[ringIndex];
+
+        if (ring != null) {
+            for (Node node : ring) {
+                node.setId("path" + colorHex); // Update the ID with new color
+            }
+        }
     }
 
     public void saveSVG(String outputFilePath) {
@@ -62,41 +95,5 @@ public class DiscoBall {
             e.printStackTrace();
             return null;
         }
-    }
-
-    private NodeList findRingElements() {
-        // Implement logic to find and return the NodeList of ring elements
-    }
-}
-
-class Node {
-    private Node prev;
-    private Node next;
-    private String id;
-
-    public Node(String id) {
-        this.id = id;
-        this.prev = null;
-        this.next = null;
-    }
-
-    // Getters and setters for prev, next, and id
-    public Node getPrev() {
-        return this.prev;
-    }
-    public Node getNext() {
-        return this.next;
-    }
-    public String getId() {
-        return this.id;
-    }
-    public void setPrev(Node prev) {
-        this.prev = prev;
-    }
-    public void setNext(Node next) {
-        this.next = next;
-    }
-    public void setId(String id) {
-        this.id = id;
     }
 }
