@@ -1,0 +1,25 @@
+Colors
+
+Each square contains:
+- silver (#bebebe, rgb(190, 190, 190))
+- blue (#9cc9f3, rgb(156, 201, 243))
+- purple (#b6a7de, rgb(182, 167, 222))
+- green (#b6d7a8, rgb(182, 215, 168))
+- pink (#f5c8de, rgb(245, 200, 222))
+- orange (#f4bd84, rgb(244, 189, 132))
+
+Question 1 (7 options):
+- silver (#bebebe, rgb(190, 190, 190))
+- blue (#9cc9f3, rgb(156, 201, 243))
+- purple (#b6a7de, rgb(182, 167, 222))
+- green (#b6d7a8, rgb(182, 215, 168))
+- pink (#f5c8de, rgb(245, 200, 222))
+- orange (#f4bd84, rgb(244, 189, 132))
+- yellow (#ffe599, rgb(255, 229, 153))
+
+Question 2 (5 options):
+- silver (#bebebe, rgb(190, 190, 190))
+- blue (#9cc9f3, rgb(156, 201, 243))
+- green (#b6d7a8, rgb(182, 215, 168))
+- pink (#f5c8de, rgb(245, 200, 222))
+- orange (#f4bd84, rgb(244, 189, 132))
