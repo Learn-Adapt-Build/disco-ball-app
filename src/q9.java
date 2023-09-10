@@ -52,18 +52,20 @@ public class q9 extends JFrame{
 		setBounds(100, 100, 400, 400);
 		getContentPane().setLayout(null);
 		
-		JRadioButton b1 = new JRadioButton("New radio button");
+		JRadioButton b1 = new JRadioButton("<html>I will attend if I do not have to pay for it</html>");
 		
 		
-		b1.setBounds(135, 169, 109, 23);
+		b1.setBounds(52, 135, 240, 23);
 		getContentPane().add(b1);
 		
-		JRadioButton b2 = new JRadioButton("New radio button");
-		b2.setBounds(135, 196, 109, 23);
+		JRadioButton b2 = new JRadioButton("<html>I would participate again since I got a lot of value out of this conference</html>");
+		b2.setVerticalAlignment(SwingConstants.TOP);
+		b2.setBounds(52, 161, 287, 37);
 		getContentPane().add(b2);
 		
-		JRadioButton b3 = new JRadioButton("New radio button");
-		b3.setBounds(135, 228, 109, 23);
+		JRadioButton b3 = new JRadioButton("<html>I am interested in participating in a similar event because I saw its topic's connection to the bigger picture</html>");
+		b3.setVerticalAlignment(SwingConstants.TOP);
+		b3.setBounds(52, 201, 326, 37);
 		getContentPane().add(b3);
 		
 		JButton btnNewButton = new JButton("Next Question");
@@ -74,8 +76,20 @@ public class q9 extends JFrame{
 				thing.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(135, 280, 112, 23);
+		btnNewButton.setBounds(116, 327, 150, 23);
 		getContentPane().add(btnNewButton);
+		
+		JRadioButton b4 = new JRadioButton("<html>I would not participate in a similar symposium</html>");
+		b4.setBounds(52, 241, 311, 23);
+		getContentPane().add(b4);
+		
+		JLabel lblNewLabel = new JLabel("<html><center>Under what circumstances would you participate in a symposium like this in the future?</center></html>");
+		lblNewLabel.setBounds(91, 58, 200, 70);
+		getContentPane().add(lblNewLabel);
+		
+		JRadioButton b5 = new JRadioButton("Other");
+		b5.setBounds(52, 267, 109, 23);
+		getContentPane().add(b5);
 		
 
 		b1.addActionListener(new ActionListener() {
@@ -84,6 +98,8 @@ public class q9 extends JFrame{
 					{
 						b2.setSelected(false);
 						b3.setSelected(false);
+						b4.setSelected(false);
+						b5.setSelected(false);
 						arr[8] = "c1";
 					}
 			}
@@ -95,6 +111,8 @@ public class q9 extends JFrame{
 				{
 					b1.setSelected(false);
 					b3.setSelected(false);
+					b4.setSelected(false);
+					b5.setSelected(false);
 					arr[8] = "c2";
 				}
 		}
@@ -106,7 +124,33 @@ public class q9 extends JFrame{
 					{
 						b1.setSelected(false);
 						b2.setSelected(false);
+						b4.setSelected(false);
+						b5.setSelected(false);
 						arr[8] = "c3";
+					}
+			}
+			});
+		b4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(b4.isSelected())
+					{
+						b1.setSelected(false);
+						b2.setSelected(false);
+						b3.setSelected(false);
+						b5.setSelected(false);
+						arr[8] = "c4";
+					}
+			}
+			});
+		b5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(b5.isSelected())
+					{
+						b1.setSelected(false);
+						b2.setSelected(false);
+						b3.setSelected(false);
+						b4.setSelected(false);
+						arr[8] = "c";
 					}
 			}
 			});

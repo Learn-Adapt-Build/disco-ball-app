@@ -55,12 +55,12 @@ public class q1 extends JFrame{
 		JRadioButton b1 = new JRadioButton("Self Advocate");
 		
 		
-		b1.setBounds(135, 109, 109, 23);
+		b1.setBounds(136, 110, 120, 23);
 		getContentPane().add(b1);
 		
-		JRadioButton b5 = new JRadioButton("Other");
-		b5.setBounds(135, 215, 109, 23);
-		getContentPane().add(b5);
+		JRadioButton b6 = new JRadioButton("Other");
+		b6.setBounds(136, 235, 120, 23);
+		getContentPane().add(b6);
 		
 		JButton btnNewButton = new JButton("Next Question");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -70,26 +70,30 @@ public class q1 extends JFrame{
 				thing.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(135, 280, 112, 23);
+		btnNewButton.setBounds(116, 280, 150, 23);
 		getContentPane().add(btnNewButton);
 		
 		JLabel lblNewLabel = new JLabel("What is your primary relation to neurodiversity:");
 		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(34, 63, 314, 23);
+		lblNewLabel.setBounds(41, 63, 300, 23);
 		getContentPane().add(lblNewLabel);
 		
 		JRadioButton b2 = new JRadioButton("Family Member");
-		b2.setBounds(135, 135, 183, 23);
+		b2.setBounds(136, 135, 120, 23);
 		getContentPane().add(b2);
 		
 		JRadioButton b3 = new JRadioButton("Researcher/Scholar");
-		b3.setBounds(135, 161, 196, 23);
+		b3.setBounds(136, 160, 212, 23);
 		getContentPane().add(b3);
 		
 		JRadioButton b4 = new JRadioButton("Policy Maker");
-		b4.setBounds(135, 187, 109, 23);
+		b4.setBounds(136, 185, 120, 23);
 		getContentPane().add(b4);
+		
+		JRadioButton b5 = new JRadioButton("General Public");
+		b5.setBounds(136, 210, 120, 23);
+		getContentPane().add(b5);
 		
 
 		b1.addActionListener(new ActionListener() {
@@ -99,7 +103,7 @@ public class q1 extends JFrame{
 						b2.setSelected(false);
 						b3.setSelected(false);
 						b4.setSelected(false);
-						b5.setSelected(false);
+						b6.setSelected(false);
 						arr[0] = "c1";
 					}
 			}
@@ -111,7 +115,7 @@ public class q1 extends JFrame{
 						b1.setSelected(false);
 						b3.setSelected(false);
 						b4.setSelected(false);
-						b5.setSelected(false);
+						b6.setSelected(false);
 						arr[0] = "c2";
 					}
 			}
@@ -125,7 +129,7 @@ public class q1 extends JFrame{
 						b1.setSelected(false);
 						b2.setSelected(false);
 						b4.setSelected(false);
-						b5.setSelected(false);
+						b6.setSelected(false);
 						arr[0] = "c3";
 					}
 			}
@@ -138,20 +142,20 @@ public class q1 extends JFrame{
 						b1.setSelected(false); 
 						b2.setSelected(false);
 						b3.setSelected(false);
-						b5.setSelected(false);
+						b6.setSelected(false);
 						arr[0] = "c4";
 					}
 			}
 			});
-		b5.addActionListener(new ActionListener() {
+		b6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(b5.isSelected())
+				if(b6.isSelected())
 					{
 						b1.setSelected(false);
 						b2.setSelected(false);
 						b3.setSelected(false);
 						b4.setSelected(false);
-						arr[0] = "c5";
+						arr[0] = "c";
 					}
 			}
 			});

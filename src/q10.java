@@ -52,18 +52,21 @@ public class q10 extends JFrame{
 		setBounds(100, 100, 400, 400);
 		getContentPane().setLayout(null);
 		
-		JRadioButton b1 = new JRadioButton("New radio button");
+		JRadioButton b1 = new JRadioButton("<html>Improving the degree to which we base research and technology on the input of neurodivergent people</html>");
+		b1.setVerticalAlignment(SwingConstants.TOP);
 		
 		
-		b1.setBounds(135, 169, 109, 23);
+		b1.setBounds(26, 135, 340, 37);
 		getContentPane().add(b1);
 		
-		JRadioButton b2 = new JRadioButton("New radio button");
-		b2.setBounds(135, 196, 109, 23);
+		JRadioButton b2 = new JRadioButton("<html>Implementing better education on neurodivergence</html>");
+		b2.setVerticalAlignment(SwingConstants.TOP);
+		b2.setBounds(26, 175, 340, 23);
 		getContentPane().add(b2);
 		
-		JRadioButton b3 = new JRadioButton("New radio button");
-		b3.setBounds(135, 228, 109, 23);
+		JRadioButton b3 = new JRadioButton("<html>Moving towards an increasingly positive narrative surrounding neurodiversity</html>");
+		b3.setVerticalAlignment(SwingConstants.TOP);
+		b3.setBounds(26, 201, 340, 37);
 		getContentPane().add(b3);
 		
 		JButton btnNewButton = new JButton("Next Question");
@@ -74,8 +77,21 @@ public class q10 extends JFrame{
 				thing.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(135, 280, 112, 23);
+		btnNewButton.setBounds(116, 327, 150, 23);
 		getContentPane().add(btnNewButton);
+		
+		JRadioButton b4 = new JRadioButton("<html>The separation and alienation of neurodivergent people</html>");
+		b4.setVerticalAlignment(SwingConstants.TOP);
+		b4.setBounds(26, 241, 340, 20);
+		getContentPane().add(b4);
+		
+		JLabel lblNewLabel = new JLabel("<html><center>What would you like to see changed/improved about future efforts?</center></html>");
+		lblNewLabel.setBounds(91, 58, 200, 70);
+		getContentPane().add(lblNewLabel);
+		
+		JRadioButton b5 = new JRadioButton("Other");
+		b5.setBounds(26, 264, 240, 23);
+		getContentPane().add(b5);
 		
 
 		b1.addActionListener(new ActionListener() {
@@ -84,6 +100,8 @@ public class q10 extends JFrame{
 					{
 						b2.setSelected(false);
 						b3.setSelected(false);
+						b4.setSelected(false);
+						b5.setSelected(false);
 						arr[9] = "c1";
 					}
 			}
@@ -95,6 +113,8 @@ public class q10 extends JFrame{
 				{
 					b1.setSelected(false);
 					b3.setSelected(false);
+					b4.setSelected(false);
+					b5.setSelected(false);
 					arr[9] = "c2";
 				}
 		}
@@ -106,7 +126,33 @@ public class q10 extends JFrame{
 					{
 						b1.setSelected(false);
 						b2.setSelected(false);
+						b4.setSelected(false);
+						b5.setSelected(false);
 						arr[9] = "c3";
+					}
+			}
+			});
+		b4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(b4.isSelected())
+					{
+						b1.setSelected(false);
+						b2.setSelected(false);
+						b3.setSelected(false);
+						b5.setSelected(false);
+						arr[9] = "c4";
+					}
+			}
+			});
+		b5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(b5.isSelected())
+					{
+						b1.setSelected(false);
+						b2.setSelected(false);
+						b3.setSelected(false);
+						b4.setSelected(false);
+						arr[9] = "c";
 					}
 			}
 			});
