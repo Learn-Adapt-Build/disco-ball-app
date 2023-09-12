@@ -3,13 +3,7 @@
 # Clear the terminal
 clear
 
-javac *.java
-
-#java DiscoBall
-
-#mvn exec:java -Dexec.mainClass="disco.ball.app.DiscoBall"
-
-mvn exec:java -Dexec.mainClass="com.disco.ball.app.DiscoBall"
+mvn exec:java -Dexec.mainClass="disco_ball_app.src.DiscoBall"
 
 
 # Set the classpath to include all JAR files in the parent directory

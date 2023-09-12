@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     
     <!-- Group ID, Artifact ID, and Version -->
-    <groupId>com.LearnAdaptBuild</groupId>
+    <groupId>LearnAdaptBuild</groupId>
     <artifactId>disco-ball-app</artifactId>
     <version>1.0.0</version>
     
@@ -18,11 +18,16 @@
             <artifactId>batik-all</artifactId>
             <version>1.17</version>
         </dependency>
+        <dependency>
+            <groupId>org.w3c</groupId>
+            <artifactId>dom</artifactId>
+            <version>2.3.0-jaxb-1.0.6</version>
+        </dependency>
     </dependencies>
     
     <!-- Build Configuration -->
     <build>
-        <sourceDirectory>disco-ball-app/src</sourceDirectory>
+        <sourceDirectory>src</sourceDirectory>
         <plugins>
             <!-- Maven Compiler Plugin -->
             <plugin>
@@ -39,7 +44,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.2.1</version>
                 <configuration>
-                    <mainClass>com.disco-ball-app.DiscoBall</mainClass>
+                    <mainClass>disco_ball_app.src.DiscoBall</mainClass>
                 </configuration>
             </plugin>
         </plugins>

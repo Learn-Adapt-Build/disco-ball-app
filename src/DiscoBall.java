@@ -1,25 +1,35 @@
-import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.apache.batik.util.XMLResourceDescriptor;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.apache.batik.anim.dom.SVGDOMImplementation;
 import org.apache.batik.anim.dom.SVGOMPathElement;
 import org.apache.batik.anim.dom.SVGOMRectElement;
 import org.apache.batik.anim.dom.SVGOMSVGElement;
 import org.apache.batik.anim.dom.SVGOMDocument;
+import org.apache.batik.anim.dom.SVGDOMImplementation;
+
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
+
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 import java.lang.reflect.Array;
 import java.util.LinkedList;
 import java.util.HashMap;
 
-
-
  
 public class DiscoBall {
-    private SVGDocument svgDocument;
+    private static SVGDocument svgDocument;
     private LinkedList<Node>[] rings;
     public HashMap<String, String> colors;
 
@@ -31,17 +41,10 @@ public class DiscoBall {
         populateRows();
     }
 
-    public DiscoBall(String svgFilePath, int numRings) {
-        this.svgDocument = loadSVGDocument(svgFilePath);
-        populateColorsMap();
-        populateRows(numRings);
-    }
-
     public static void main(String[] args) {
         DiscoBall discoBall = new DiscoBall("img/disco-ball.svg");
         discoBall.changeSquareColorSVG(10, 5, "red"); // Change the color of the 6th square in the 11th row to red
-        discoBall.saveSVG("img/disco-ball-red.svg");
-
+        discoBall.saveSVG(svgDocument, "img/disco-ball-red.svg");
     }
     
     public void populateRows() {
@@ -61,7 +64,7 @@ public class DiscoBall {
                 }
             }
     
-            rows[i] = rowList; // Store the linked list in the corresponding row
+            rings[i] = rowList; // Store the linked list in the corresponding row
         }
     }
     
@@ -84,24 +87,40 @@ public class DiscoBall {
         colors.put("black", "#000000");
     }
 
-    public void changeSquareColorSVG(int rowIndex, int squareIndex, String color) {
-            LinkedList<Node> row = rows[rowIndex];
-            String colorHex = colors.get(color);
-        
-            if (row != null && squareIndex >= 0 && squareIndex < row.size()) {
-                Node squareNode = row.get(squareIndex);
-                String squareId = squareNode.getId();
-                Element squareElement = findSquareElement(squareId);
-        
-                if (squareElement != null) {
-                    squareElement.setAttribute("fill", colorHex); // Update the fill color
-                }
+    public void changePathColorSVG(int rowIndex, int pathIndex, String color) {
+        LinkedList<Node> row = rings[rowIndex];
+        String colorHex = colors.get(color);
+    
+        if (row != null && pathIndex >= 0 && pathIndex < row.size()) {
+            Node pathNode = row.get(pathIndex);
+            if (pathNode instanceof SVGOMPathElement) {
+                SVGOMPathElement pathElement = (SVGOMPathElement) pathNode;
+                pathElement.setAttribute("fill", colorHex); // Update the fill color
             }
+        }
     }
 
-    public void saveSVG(String outputFilePath) {
-        SVGUtils.writeSVGDocument(svgDocument, new File(outputFilePath));
+    public static void saveSVG(SVGDocument svgDocument, String filePath) {
+        try {
+            // Assuming you have an OutputStream to write to the SVG file
+            OutputStream outputStream = new FileOutputStream(filePath);
+    
+            // Use a Transformer to serialize the updated DOM to the file
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            DOMSource source = new DOMSource(svgDocument);
+            StreamResult result = new StreamResult(outputStream);
+            transformer.transform(source, result);
+    
+            // Close the output stream
+            outputStream.close();
+        } catch (Exception e) {
+            // Handle exceptions here
+            e.printStackTrace();
+        }
     }
+    
 
     private SVGDocument loadSVGDocument(String svgFilePath) {
         try {
@@ -112,21 +131,5 @@ public class DiscoBall {
             e.printStackTrace();
             return null;
         }
-    }
-}
-
-class MyNode {
-    private String id;
-
-    public MyNode(String id) {
-        this.id = id;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String newId) {
-        this.id = newId;
     }
 }
