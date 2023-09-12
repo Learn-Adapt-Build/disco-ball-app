@@ -1,17 +1,10 @@
 import org.apache.batik.util.XMLResourceDescriptor;
-//import org.openrndr.svg.SVGDocument;
-//import org.apache.batik.dom.svg.SVGDocument;
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
-//import org.apache.batik.anim.dom.SVGDOMImplementation;
-//import org.apache.batik.anim.dom.SVGOMPathElement;
 import org.apache.batik.anim.dom.SVGOMPolygonElement;
-//import org.apache.batik.anim.dom.SVGOMRectElement;
-//import org.apache.batik.anim.dom.SVGOMSVGElement;
 import org.apache.batik.anim.dom.SVGOMDocument;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-//import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 
 import javax.xml.transform.OutputKeys;
@@ -25,25 +18,20 @@ import java.io.IOException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
-//import java.lang.reflect.Array;
 import java.util.LinkedList;
 import java.util.HashMap;
 
  
 public class DiscoBall {
-    //private static SVGDocument svgDocument;
     private static SVGOMDocument svgDocument;
     // Initialize the array to store 21 rows
     @SuppressWarnings("unchecked")
     private LinkedList<Node>[] rings = new LinkedList[21];
     public HashMap<String, String> colors;
 
-
     // constructor for DiscoBall
     public DiscoBall(String svgFilePath) {
         svgDocument = loadSVGDocument(svgFilePath);
-        System.out.println(svgDocument);
-
         populateColorsMap();
         populateRows();
     }
@@ -76,12 +64,10 @@ public class DiscoBall {
             }
     
             rings[i] = rowList; // Store the linked list in the corresponding row
-    
             // Print out the contents of the row
             System.out.println("Row " + (i + 1) + ": " + rowList.size() + " elements");
         }
     }
-    
     
     // usage example: colors.get("silver") returns "#bebebe";
     // String colorHex = colors.get("silver");
