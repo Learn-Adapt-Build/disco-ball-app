@@ -1,0 +1,11 @@
+*.class
+.DS_Store
+.settings
+.project
+.classpath
+bin/*.class
+src/*.class
+src/.classpath
+src/.settings/*
+src/.project
+*.json
