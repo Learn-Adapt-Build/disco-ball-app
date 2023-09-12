@@ -8,3 +8,4 @@ src/*.class
 src/.classpath
 src/.settings/*
 src/.project
+*.json

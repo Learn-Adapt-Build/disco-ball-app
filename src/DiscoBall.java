@@ -1,15 +1,17 @@
 import org.apache.batik.util.XMLResourceDescriptor;
+//import org.openrndr.svg.SVGDocument;
+//import org.apache.batik.dom.svg.SVGDocument;
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
-import org.apache.batik.anim.dom.SVGDOMImplementation;
-import org.apache.batik.anim.dom.SVGOMPathElement;
-import org.apache.batik.anim.dom.SVGOMRectElement;
-import org.apache.batik.anim.dom.SVGOMSVGElement;
+//import org.apache.batik.anim.dom.SVGDOMImplementation;
+//import org.apache.batik.anim.dom.SVGOMPathElement;
+import org.apache.batik.anim.dom.SVGOMPolygonElement;
+//import org.apache.batik.anim.dom.SVGOMRectElement;
+//import org.apache.batik.anim.dom.SVGOMSVGElement;
 import org.apache.batik.anim.dom.SVGOMDocument;
-import org.apache.batik.anim.dom.SVGDOMImplementation;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.DOMImplementation;
+//import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 
 import javax.xml.transform.OutputKeys;
@@ -23,50 +25,63 @@ import java.io.IOException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
-import java.lang.reflect.Array;
+//import java.lang.reflect.Array;
 import java.util.LinkedList;
 import java.util.HashMap;
 
  
 public class DiscoBall {
-    private static SVGDocument svgDocument;
-    private LinkedList<Node>[] rings;
+    //private static SVGDocument svgDocument;
+    private static SVGOMDocument svgDocument;
+    // Initialize the array to store 21 rows
+    @SuppressWarnings("unchecked")
+    private LinkedList<Node>[] rings = new LinkedList[21];
     public HashMap<String, String> colors;
 
 
     // constructor for DiscoBall
     public DiscoBall(String svgFilePath) {
-        this.svgDocument = loadSVGDocument(svgFilePath);
+        svgDocument = loadSVGDocument(svgFilePath);
+        System.out.println(svgDocument);
+
         populateColorsMap();
         populateRows();
     }
 
     public static void main(String[] args) {
-        DiscoBall discoBall = new DiscoBall("img/disco-ball.svg");
-        discoBall.changeSquareColorSVG(10, 5, "red"); // Change the color of the 6th square in the 11th row to red
-        discoBall.saveSVG(svgDocument, "img/disco-ball-red.svg");
+        DiscoBall discoBall = new DiscoBall("img/discoball.svg");
+        for (int i = 0; i < 26; i++) {
+            discoBall.changePolygonColorSVG(10, i, "green"); 
+        }
+        discoBall.changePolygonColorSVG(10, 5, "green");
+        discoBall.saveSVG();
     }
     
-    public void populateRows() {
-        rings = new LinkedList[21]; // Initialize the array to store 21 rows
-    
+    public void populateRows() {    
         for (int i = 0; i < 21; i++) {
             String groupName = "row" + (i + 1); // row names are like row1, row2, etc
-            NodeList pathNodes = svgDocument.getElementsByTagName("path");
+            NodeList pathNodes = svgDocument.getElementsByTagName("polygon");
             LinkedList<Node> rowList = new LinkedList<>();
     
             // Iterate through path elements and add them to the row's linked list
             for (int j = 0; j < pathNodes.getLength(); j++) {
                 Node node = pathNodes.item(j);
-                if (node.getParentNode().getNodeName().equals("g") &&
-                    node.getParentNode().getAttributes().getNamedItem("id").getNodeValue().equals(groupName)) {
-                    rowList.add(node);
+                if (node.getParentNode().getNodeName().equals("g")) {
+                    String groupId = node.getParentNode().getAttributes().getNamedItem("id").getNodeValue();
+    
+                    if (groupId.equals(groupName)) {
+                        rowList.add(node);
+                    }
                 }
             }
     
             rings[i] = rowList; // Store the linked list in the corresponding row
+    
+            // Print out the contents of the row
+            System.out.println("Row " + (i + 1) + ": " + rowList.size() + " elements");
         }
     }
+    
     
     // usage example: colors.get("silver") returns "#bebebe";
     // String colorHex = colors.get("silver");
@@ -87,24 +102,25 @@ public class DiscoBall {
         colors.put("black", "#000000");
     }
 
-    public void changePathColorSVG(int rowIndex, int pathIndex, String color) {
+    public void changePolygonColorSVG(int rowIndex, int polygonIndex, String color) {
         LinkedList<Node> row = rings[rowIndex];
         String colorHex = colors.get(color);
-    
-        if (row != null && pathIndex >= 0 && pathIndex < row.size()) {
-            Node pathNode = row.get(pathIndex);
-            if (pathNode instanceof SVGOMPathElement) {
-                SVGOMPathElement pathElement = (SVGOMPathElement) pathNode;
-                pathElement.setAttribute("fill", colorHex); // Update the fill color
+
+        if (row != null && polygonIndex >= 0 && polygonIndex < row.size()) {
+            Node polygonNode = row.get(polygonIndex);
+            if (polygonNode instanceof SVGOMPolygonElement) {
+                SVGOMPolygonElement polygonElement = (SVGOMPolygonElement) polygonNode;
+                polygonElement.setAttribute("fill", colorHex); // Update the fill color
             }
         }
     }
 
-    public static void saveSVG(SVGDocument svgDocument, String filePath) {
+
+    public void saveSVG() {
         try {
+            String filePath = "img/DiscoBall_Modified.svg"; // File path to save or open
             // Assuming you have an OutputStream to write to the SVG file
             OutputStream outputStream = new FileOutputStream(filePath);
-    
             // Use a Transformer to serialize the updated DOM to the file
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
@@ -120,13 +136,18 @@ public class DiscoBall {
             e.printStackTrace();
         }
     }
-    
 
-    private SVGDocument loadSVGDocument(String svgFilePath) {
+    private SVGOMDocument loadSVGDocument(String svgFilePath) {
         try {
             String parser = XMLResourceDescriptor.getXMLParserClassName();
             SAXSVGDocumentFactory factory = new SAXSVGDocumentFactory(parser);
-            return factory.createSVGDocument(new File(svgFilePath).toURI().toString());
+            Document document = factory.createSVGDocument(new File(svgFilePath).toURI().toString());
+    
+            if (document instanceof SVGOMDocument) {
+                return (SVGOMDocument) document;
+            } else {
+                throw new IllegalArgumentException("The loaded document is not an SVG document.");
+            }
         } catch (IOException e) {
             e.printStackTrace();
             return null;
