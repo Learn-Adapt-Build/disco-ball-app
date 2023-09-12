@@ -52,30 +52,51 @@ public class q4 extends JFrame{
 		setBounds(100, 100, 400, 400);
 		getContentPane().setLayout(null);
 		
-		JRadioButton b1 = new JRadioButton("New radio button");
+		JRadioButton b4 = new JRadioButton("<html><center>" + "Job training" + "</center></html>");
+		b4.setVerticalAlignment(SwingConstants.TOP);
 		
 		
-		b1.setBounds(135, 169, 109, 23);
-		getContentPane().add(b1);
+		b4.setBounds(35, 170, 300, 23);
+		getContentPane().add(b4);
 		
-		JRadioButton b2 = new JRadioButton("New radio button");
-		b2.setBounds(135, 196, 109, 23);
+		JRadioButton b2 = new JRadioButton("<html>Educate neurotypical employees with sensitivity training</html>");
+		b2.setVerticalAlignment(SwingConstants.TOP);
+		b2.setBounds(35, 196, 343, 23);
 		getContentPane().add(b2);
 		
-		JRadioButton b3 = new JRadioButton("New radio button");
-		b3.setBounds(135, 228, 109, 23);
+		JRadioButton b3 = new JRadioButton("<html>Adjusting the hiring process to be more inclusive</html>");
+		b3.setVerticalAlignment(SwingConstants.TOP);
+		b3.setBounds(35, 222, 321, 23);
 		getContentPane().add(b3);
 		
-		JButton btnNewButton = new JButton("Next Question");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btn = new JButton("Next Question");
+		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				q5 thing = new q5(arr);
 				thing.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(135, 280, 112, 23);
-		getContentPane().add(btnNewButton);
+		btn.setBounds(116, 313, 150, 23);
+		getContentPane().add(btn);
+		
+		JLabel lblNewLabel = new JLabel("<html><center>" + "How can businesses and the concerned parties foster a constructive partnership?" + "</center></html>");
+		lblNewLabel.setBounds(92, 66, 200, 74);
+		getContentPane().add(lblNewLabel);
+		
+		JRadioButton b1 = new JRadioButton("<html>Support for starting their own businesses</html>");
+		b1.setVerticalAlignment(SwingConstants.TOP);
+		b1.setBounds(35, 144, 300, 23);
+		getContentPane().add(b1);
+		
+		JRadioButton b5 = new JRadioButton("<html>Providing accomodations in the workplace</html>");
+		b5.setVerticalAlignment(SwingConstants.TOP);
+		b5.setBounds(35, 248, 343, 23);
+		getContentPane().add(b5);
+		
+		JRadioButton b6 = new JRadioButton("Other");
+		b6.setBounds(35, 274, 109, 23);
+		getContentPane().add(b6);
 		
 
 		b1.addActionListener(new ActionListener() {
@@ -84,6 +105,8 @@ public class q4 extends JFrame{
 					{
 						b2.setSelected(false);
 						b3.setSelected(false);
+						b4.setSelected(false);
+						b6.setSelected(false);
 						arr[3] = "c1";
 					}
 			}
@@ -95,6 +118,8 @@ public class q4 extends JFrame{
 				{
 					b1.setSelected(false);
 					b3.setSelected(false);
+					b4.setSelected(false);
+					b6.setSelected(false);
 					arr[3] = "c2";
 				}
 		}
@@ -106,7 +131,47 @@ public class q4 extends JFrame{
 					{
 						b1.setSelected(false);
 						b2.setSelected(false);
+						b4.setSelected(false);
+						b6.setSelected(false);
 						arr[3] = "c3";
+					}
+			}
+			});
+		b4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(b4.isSelected())
+					{
+						b1.setSelected(false);
+						b2.setSelected(false);
+						b3.setSelected(false);
+						b6.setSelected(false);
+						arr[3] = "c4";
+					}
+			}
+			});
+		b5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(b5.isSelected())
+					{
+						b1.setSelected(false);
+						b2.setSelected(false);
+						b3.setSelected(false);
+						b4.setSelected(false);
+						b6.setSelected(false);
+						arr[3] = "c5";
+					}
+			}
+			});
+		b6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(b6.isSelected())
+					{
+						b1.setSelected(false);
+						b2.setSelected(false);
+						b3.setSelected(false);
+						b4.setSelected(false);
+						b5.setSelected(false);
+						arr[3] = "c";
 					}
 			}
 			});

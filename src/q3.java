@@ -52,18 +52,21 @@ public class q3 extends JFrame{
 		setBounds(100, 100, 400, 400);
 		getContentPane().setLayout(null);
 		
-		JRadioButton b1 = new JRadioButton("New radio button");
+		JRadioButton b1 = new JRadioButton("<html>Accessing services</html>");
+		b1.setVerticalAlignment(SwingConstants.TOP);
 		
 		
-		b1.setBounds(135, 169, 109, 23);
+		b1.setBounds(109, 131, 173, 23);
 		getContentPane().add(b1);
 		
-		JRadioButton b2 = new JRadioButton("New radio button");
-		b2.setBounds(135, 196, 109, 23);
+		JRadioButton b2 = new JRadioButton("<html>Being accepted by society</html>");
+		b2.setVerticalAlignment(SwingConstants.TOP);
+		b2.setBounds(109, 156, 240, 23);
 		getContentPane().add(b2);
 		
-		JRadioButton b3 = new JRadioButton("New radio button");
-		b3.setBounds(135, 228, 109, 23);
+		JRadioButton b3 = new JRadioButton("<html>Accommodation for being different</html>");
+		b3.setVerticalAlignment(SwingConstants.TOP);
+		b3.setBounds(109, 181, 269, 23);
 		getContentPane().add(b3);
 		
 		JButton btnNewButton = new JButton("Next Question");
@@ -74,16 +77,22 @@ public class q3 extends JFrame{
 				thing.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(135, 280, 112, 23);
+		btnNewButton.setBounds(116, 279, 150, 23);
 		getContentPane().add(btnNewButton);
 		
-		JLabel lblNewLabel = new JLabel("<html><center>" + "In your opinion, what is the most important for neurodiverse people?"+ "</center></html>");
-		lblNewLabel.setBounds(99, 56, 178, 68);
+		JLabel lblNewLabel = new JLabel("<html><center>" + "From your own experiences, what is currently the most important aspects of improving lives?"+ "</center></html>");
+		lblNewLabel.setBounds(92, 56, 200, 68);
 		getContentPane().add(lblNewLabel);
 		
-		JRadioButton b4 = new JRadioButton("New radio button");
-		b4.setBounds(135, 254, 109, 23);
+		JRadioButton b4 = new JRadioButton("<html>Celebrating neurodiversity</html>");
+		b4.setVerticalAlignment(SwingConstants.TOP);
+		b4.setBounds(109, 206, 240, 23);
 		getContentPane().add(b4);
+		
+		JRadioButton b5 = new JRadioButton("Other");
+		b5.setVerticalAlignment(SwingConstants.TOP);
+		b5.setBounds(109, 231, 110, 23);
+		getContentPane().add(b5);
 		
 
 		b1.addActionListener(new ActionListener() {
@@ -93,6 +102,7 @@ public class q3 extends JFrame{
 						b2.setSelected(false);
 						b3.setSelected(false);
 						b4.setSelected(false);
+						b5.setSelected(false);
 						arr[2] = "c1";
 					}
 			}
@@ -105,6 +115,7 @@ public class q3 extends JFrame{
 					b1.setSelected(false);
 					b3.setSelected(false);
 					b4.setSelected(false);
+					b5.setSelected(false);
 					arr[2] = "c2";
 				}
 		}
@@ -117,6 +128,7 @@ public class q3 extends JFrame{
 						b1.setSelected(false);
 						b2.setSelected(false);
 						b4.setSelected(false);
+						b5.setSelected(false);
 						arr[2] = "c3";
 					}
 			}
@@ -128,7 +140,20 @@ public class q3 extends JFrame{
 						b1.setSelected(false);
 						b2.setSelected(false);
 						b3.setSelected(false);
+						b5.setSelected(false);
 						arr[2] = "c4";
+					}
+			}
+			});
+		b5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(b5.isSelected())
+					{
+						b1.setSelected(false);
+						b2.setSelected(false);
+						b3.setSelected(false);
+						b4.setSelected(false);
+						arr[2] = "c";
 					}
 			}
 			});

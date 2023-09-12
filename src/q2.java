@@ -52,21 +52,21 @@ public class q2 extends JFrame{
 		setBounds(100, 100, 400, 400);
 		getContentPane().setLayout(null);
 		
-		JRadioButton b1 = new JRadioButton("<html>" + "Successful neurodivergent people overcome challeneges with neurodiversity through innate talent, hard work, family social status, and support from others." + "</html>");
+		JRadioButton b1 = new JRadioButton("<html>Successful neurodivergent people overcome challeneges with neurodiversity through innate talent, hard work, family social status, and support from others.</html>");
 		b1.setVerticalAlignment(SwingConstants.TOP);
 		
 		
-		b1.setBounds(27, 121, 351, 51);
+		b1.setBounds(21, 121, 350, 51);
 		getContentPane().add(b1);
 		
-		JRadioButton b2 = new JRadioButton("<html>" + "They achieve success by harnessing the unique strengths of their neurodivergence (Strength-Based Model of Neurodiversity)." + "</html>");
+		JRadioButton b2 = new JRadioButton("<html>They achieve success by harnessing the unique strengths of their neurodivergence (Strength-Based Model of Neurodiversity).</html>");
 		b2.setVerticalAlignment(SwingConstants.TOP);
-		b2.setBounds(27, 175, 335, 51);
+		b2.setBounds(21, 175, 350, 37);
 		getContentPane().add(b2);
 		
-		JRadioButton b3 = new JRadioButton("<html>" + "Some think they were fortunate to be in environments that suits their traits (Social Model)" + "</html>");
+		JRadioButton b3 = new JRadioButton("<html>Some think they were fortunate to be in environments that suits their traits (Social Model)</html>");
 		b3.setVerticalAlignment(SwingConstants.TOP);
-		b3.setBounds(27, 229, 351, 37);
+		b3.setBounds(21, 215, 350, 37);
 		getContentPane().add(b3);
 		
 		JButton btnNewButton = new JButton("Next Question");
@@ -77,16 +77,17 @@ public class q2 extends JFrame{
 				thing.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(138, 327, 112, 23);
+		btnNewButton.setBounds(116, 327, 150, 23);
 		getContentPane().add(btnNewButton);
 		
 		JLabel lblNewLabel = new JLabel("<html> <center>" + "There are various views regarding the reasons for the success of a neurodivergent people.Which perspective resonates with you the most? And how do you think a neurodivergent person can succeed in life?" + "</center></html");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(27, 33, 322, 81);
+		lblNewLabel.setBounds(30, 33, 322, 81);
 		getContentPane().add(lblNewLabel);
 		
-		JRadioButton b4 = new JRadioButton("Other");
-		b4.setBounds(27, 269, 146, 23);
+		JRadioButton b4 = new JRadioButton("<html> <center>" + "Other" + "</center></html");
+		b4.setVerticalAlignment(SwingConstants.TOP);
+		b4.setBounds(21, 255, 350, 23);
 		getContentPane().add(b4);
 		
 
@@ -132,7 +133,7 @@ public class q2 extends JFrame{
 						b1.setSelected(false);
 						b2.setSelected(false);
 						b3.setSelected(false);
-						arr[1] = "c4";
+						arr[1] = "c";
 					}
 			}
 			});
