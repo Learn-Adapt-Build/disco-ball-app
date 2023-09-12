@@ -37,37 +37,42 @@ public class DiscoBall {
     }
 
     public static void main(String[] args) {
-        DiscoBall discoBall = new DiscoBall("img/discoball.svg");
+        DiscoBall discoBall = new DiscoBall("disco-ball-app/img/discoball.svg");
         for (int i = 0; i < 26; i++) {
             discoBall.changePolygonColorSVG(10, i, "green"); 
+            discoBall.saveSVG();
         }
-        discoBall.changePolygonColorSVG(10, 5, "green");
+        //discoBall.changePolygonColorSVG(10, 5, "green");
         discoBall.saveSVG();
     }
     
-    public void populateRows() {    
-        for (int i = 0; i < 21; i++) {
-            String groupName = "row" + (i + 1); // row names are like row1, row2, etc
-            NodeList pathNodes = svgDocument.getElementsByTagName("polygon");
-            LinkedList<Node> rowList = new LinkedList<>();
+    private void populateRows() {
+        if (svgDocument != null) {
+            for (int rowIndex = 0; rowIndex < ROW_COUNT; rowIndex++) {
+                String rowId = "row" + (rowIndex + 1);
+                Element rowElement = svgDocument.getElementById(rowId);
     
-            // Iterate through path elements and add them to the row's linked list
-            for (int j = 0; j < pathNodes.getLength(); j++) {
-                Node node = pathNodes.item(j);
-                if (node.getParentNode().getNodeName().equals("g")) {
-                    String groupId = node.getParentNode().getAttributes().getNamedItem("id").getNodeValue();
+                if (rowElement != null) {
+                    NodeList polygonNodes = rowElement.getElementsByTagName("polygon");
+                    LinkedList<Node> row = new LinkedList<>();
     
-                    if (groupId.equals(groupName)) {
-                        rowList.add(node);
+                    for (int i = 0; i < polygonNodes.getLength(); i++) {
+                        Node polygonNode = polygonNodes.item(i);
+    
+                        if (polygonNode instanceof SVGOMPolygonElement) {
+                            SVGOMPolygonElement polygonElement = (SVGOMPolygonElement) polygonNode;
+                            String cssClass = polygonElement.getAttribute("class");
+                            row.add(polygonNode);
+                            System.out.println("Found row: " + rowId + ", CSS class: " + cssClass);
+                        }
                     }
+    
+                    rings[rowIndex] = row;
                 }
             }
-    
-            rings[i] = rowList; // Store the linked list in the corresponding row
-            // Print out the contents of the row
-            System.out.println("Row " + (i + 1) + ": " + rowList.size() + " elements");
         }
     }
+    
     
     // usage example: colors.get("silver") returns "#bebebe";
     // String colorHex = colors.get("silver");
@@ -95,33 +100,39 @@ public class DiscoBall {
         if (row != null && polygonIndex >= 0 && polygonIndex < row.size()) {
             Node polygonNode = row.get(polygonIndex);
             if (polygonNode instanceof SVGOMPolygonElement) {
+                //System.out.println("Changing color for Row " + rowIndex + ", Polygon " + polygonIndex + " to " + colorHex);
                 SVGOMPolygonElement polygonElement = (SVGOMPolygonElement) polygonNode;
+                polygonElement.removeAttribute("class"); // Remove the CSS class attribute
                 polygonElement.setAttribute("fill", colorHex); // Update the fill color
             }
         }
     }
 
-
     public void saveSVG() {
         try {
-            String filePath = "img/DiscoBall_Modified.svg"; // File path to save or open
-            // Assuming you have an OutputStream to write to the SVG file
-            OutputStream outputStream = new FileOutputStream(filePath);
-            // Use a Transformer to serialize the updated DOM to the file
+            // Define the file path where you want to save the modified SVG
+            String filePath = "disco-ball-app/img/discoball-mod.svg";
+    
+            // Create a new transformer factory and transformer
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+    
+            // Create a source from the modified SVG document
             DOMSource source = new DOMSource(svgDocument);
-            StreamResult result = new StreamResult(outputStream);
+    
+            // Create a result for the output file
+            File outputFile = new File(filePath);
+            StreamResult result = new StreamResult(outputFile);
+    
+            // Transform and save the modified SVG document to the output file
             transformer.transform(source, result);
     
-            // Close the output stream
-            outputStream.close();
+            //System.out.println("Modified SVG saved to " + filePath);
         } catch (Exception e) {
-            // Handle exceptions here
             e.printStackTrace();
         }
     }
+    
 
     private SVGOMDocument loadSVGDocument(String svgFilePath) {
         try {
