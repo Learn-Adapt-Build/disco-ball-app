@@ -74,7 +74,6 @@ public class DiscoBall {
                             SVGOMPolygonElement polygonElement = (SVGOMPolygonElement) polygonNode;
                             String cssClass = polygonElement.getAttribute("class");
                             row.add(polygonNode);
-                            //System.out.println("Found row: " + rowId + ", CSS class: " + cssClass);
                         }
                     }
     
