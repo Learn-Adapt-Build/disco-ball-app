@@ -6,6 +6,7 @@ import org.apache.batik.anim.dom.SVGOMDocument;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -29,15 +30,15 @@ public class DiscoBall {
     private LinkedList<Node>[] rings = new LinkedList[21];
     public HashMap<String, String> colors;
 
-    // constructor for DiscoBall
-    public DiscoBall(String svgFilePath) {
-        svgDocument = loadSVGDocument(svgFilePath);
+    public DiscoBall() {
+        svgDocument = loadSVGDocument("disco-ball-app/img/discoball.svg");
         populateColorsMap();
         populateRows();
     }
 
     public static void main(String[] args) {
-        DiscoBall discoBall = new DiscoBall("disco-ball-app/img/discoball.svg");
+        DiscoBall discoBall = new DiscoBall();
+        discoBall.printRings();
         for (int i = 0; i < 26; i++) {
             discoBall.changePolygonColorSVG(10, i, "green"); 
             discoBall.saveSVG();
@@ -45,10 +46,20 @@ public class DiscoBall {
         //discoBall.changePolygonColorSVG(10, 5, "green");
         discoBall.saveSVG();
     }
+
+    // print out contents of the rings array
+    public void printRings() {
+        for (int i = 0; i < rings.length; i++) {
+            LinkedList<Node> row = rings[i];
+            if (row != null) {
+                System.out.println("Row " + (i + 1) + ": " + row.size() + " polygons");
+            }
+        }
+    }
     
     private void populateRows() {
         if (svgDocument != null) {
-            for (int rowIndex = 0; rowIndex < ROW_COUNT; rowIndex++) {
+            for (int rowIndex = 0; rowIndex < 21; rowIndex++) {
                 String rowId = "row" + (rowIndex + 1);
                 Element rowElement = svgDocument.getElementById(rowId);
     
@@ -63,7 +74,7 @@ public class DiscoBall {
                             SVGOMPolygonElement polygonElement = (SVGOMPolygonElement) polygonNode;
                             String cssClass = polygonElement.getAttribute("class");
                             row.add(polygonNode);
-                            System.out.println("Found row: " + rowId + ", CSS class: " + cssClass);
+                            //System.out.println("Found row: " + rowId + ", CSS class: " + cssClass);
                         }
                     }
     
@@ -99,14 +110,22 @@ public class DiscoBall {
 
         if (row != null && polygonIndex >= 0 && polygonIndex < row.size()) {
             Node polygonNode = row.get(polygonIndex);
-            if (polygonNode instanceof SVGOMPolygonElement) {
-                //System.out.println("Changing color for Row " + rowIndex + ", Polygon " + polygonIndex + " to " + colorHex);
-                SVGOMPolygonElement polygonElement = (SVGOMPolygonElement) polygonNode;
-                polygonElement.removeAttribute("class"); // Remove the CSS class attribute
-                polygonElement.setAttribute("fill", colorHex); // Update the fill color
+            if (polygonNode instanceof Element) {
+                Element polygonElement = (Element) polygonNode;
+
+                // Get the list of CSS classes for the element
+                String cssClasses = polygonElement.getAttribute("class");
+
+                // Change the fill color for each CSS class
+                if (!cssClasses.isEmpty()) {
+                    String[] classes = cssClasses.split("\\s+");
+                    for (String cssClass : classes) {
+                        polygonElement.setAttribute("fill", colorHex);
+                    }
+                }
             }
-        }
     }
+}
 
     public void saveSVG() {
         try {
@@ -133,7 +152,6 @@ public class DiscoBall {
         }
     }
     
-
     private SVGOMDocument loadSVGDocument(String svgFilePath) {
         try {
             String parser = XMLResourceDescriptor.getXMLParserClassName();

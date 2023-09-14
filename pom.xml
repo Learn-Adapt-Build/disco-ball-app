@@ -46,7 +46,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.2.1</version>
                 <configuration>
-                    <mainClass>disco-ball-app.src.DiscoBall</mainClass>
+                    <mainClass>DiscoBall</mainClass>
                 </configuration>
             </plugin>
         </plugins>

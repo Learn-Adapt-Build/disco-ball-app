@@ -66,21 +66,22 @@ public class q1 extends JFrame{
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				q2 thing = new q2(arr);
+				q2 thing = new q2(arr, q1.this);
+				thing.setLocationRelativeTo(q1.this);
 				thing.setVisible(true);
 			}
 		});
 		btnNewButton.setBounds(116, 280, 150, 23);
 		getContentPane().add(btnNewButton);
 		
-		JLabel lblNewLabel = new JLabel("What is your primary relation to neurodiversity:");
+		JLabel lblNewLabel = new JLabel("1. What is your primary relation to neurodiversity:");
 		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(41, 63, 300, 23);
 		getContentPane().add(lblNewLabel);
 		
 		JRadioButton b2 = new JRadioButton("Family Member");
-		b2.setBounds(136, 135, 120, 23);
+		b2.setBounds(136, 135, 150, 23);
 		getContentPane().add(b2);
 		
 		JRadioButton b3 = new JRadioButton("Researcher/Scholar");
@@ -92,7 +93,7 @@ public class q1 extends JFrame{
 		getContentPane().add(b4);
 		
 		JRadioButton b5 = new JRadioButton("General Public");
-		b5.setBounds(136, 210, 120, 23);
+		b5.setBounds(136, 210, 150, 23);
 		getContentPane().add(b5);
 		
 
