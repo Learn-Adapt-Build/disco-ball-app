@@ -9,3 +9,4 @@ src/.classpath
 src/.settings/*
 src/.project
 *.json
+target/*
