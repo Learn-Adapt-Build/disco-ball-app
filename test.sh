@@ -1,5 +1,5 @@
-cd src
 clear
+cd src
 
 javac main.java
 java main
