@@ -53,6 +53,7 @@ public class picture extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 400);
 		getContentPane().setLayout(null);
+		setLocationRelativeTo(null);
 		
 		
 		JButton btnNewButton = new JButton("Restart");
@@ -63,6 +64,7 @@ public class picture extends JFrame{
 				try {
 					thing = new main();
 					thing.setVisible(true);
+					thing.setLocationRelativeTo(null);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

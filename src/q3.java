@@ -1,161 +1,90 @@
-import java.awt.EventQueue;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
-
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.imageio.ImageIO;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
+public class q3 extends JFrame {
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import javax.swing.SwingConstants;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JRadioButton;
+    private String[] arr;
 
+    public q3(String[] arr1) {
+        arr = arr1;
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new GridBagLayout());
+        //setLocationRelativeTo(null);
 
-public class q3 extends JFrame{
-	
-	private String[] arr;
-	
-	
-	public q3(String[] arr1) {
-		arr = arr1;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 400, 400);
-		getContentPane().setLayout(null);
-		
-		JRadioButton b1 = new JRadioButton("<html>Accessing services</html>");
-		b1.setVerticalAlignment(SwingConstants.TOP);
-		
-		
-		b1.setBounds(109, 131, 173, 23);
-		getContentPane().add(b1);
-		
-		JRadioButton b2 = new JRadioButton("<html>Being accepted by society</html>");
-		b2.setVerticalAlignment(SwingConstants.TOP);
-		b2.setBounds(109, 156, 240, 23);
-		getContentPane().add(b2);
-		
-		JRadioButton b3 = new JRadioButton("<html>Accommodation for being different</html>");
-		b3.setVerticalAlignment(SwingConstants.TOP);
-		b3.setBounds(109, 181, 269, 23);
-		getContentPane().add(b3);
-		
-		JButton btnNewButton = new JButton("Next Question");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				q4 thing = new q4(arr);
-				thing.setVisible(true);
-			}
-		});
-		btnNewButton.setBounds(116, 279, 150, 23);
-		getContentPane().add(btnNewButton);
-		
-		JLabel lblNewLabel = new JLabel("<html><center>" + "From your own experiences, what is currently the most important aspects of improving lives?"+ "</center></html>");
-		lblNewLabel.setBounds(92, 56, 200, 68);
-		getContentPane().add(lblNewLabel);
-		
-		JRadioButton b4 = new JRadioButton("<html>Celebrating neurodiversity</html>");
-		b4.setVerticalAlignment(SwingConstants.TOP);
-		b4.setBounds(109, 206, 240, 23);
-		getContentPane().add(b4);
-		
-		JRadioButton b5 = new JRadioButton("Other");
-		b5.setVerticalAlignment(SwingConstants.TOP);
-		b5.setBounds(109, 231, 110, 23);
-		getContentPane().add(b5);
-		
+        // Add the question label with a maximum width of 450
+        JLabel lblNewLabel = createWrappedLabel("<html><center>" + "3. From your own experiences, what is currently the most important aspects of improving lives?" + "</center></html>", 450);
+        GridBagConstraints labelConstraints = new GridBagConstraints();
+        labelConstraints.gridx = 0;
+        labelConstraints.gridy = 0;
+        labelConstraints.gridwidth = 2;
+        labelConstraints.fill = GridBagConstraints.HORIZONTAL;
+        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        getContentPane().add(lblNewLabel, labelConstraints);
 
-		b1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(b1.isSelected())
-					{
-						b2.setSelected(false);
-						b3.setSelected(false);
-						b4.setSelected(false);
-						b5.setSelected(false);
-						arr[2] = "c1";
-					}
-			}
-			});
-	
-		b2.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			if(b2.isSelected())
-				{
-					b1.setSelected(false);
-					b3.setSelected(false);
-					b4.setSelected(false);
-					b5.setSelected(false);
-					arr[2] = "c2";
-				}
-		}
-		});
-		
-		b3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(b3.isSelected())
-					{
-						b1.setSelected(false);
-						b2.setSelected(false);
-						b4.setSelected(false);
-						b5.setSelected(false);
-						arr[2] = "c3";
-					}
-			}
-			});
-		b4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(b4.isSelected())
-					{
-						b1.setSelected(false);
-						b2.setSelected(false);
-						b3.setSelected(false);
-						b5.setSelected(false);
-						arr[2] = "c4";
-					}
-			}
-			});
-		b5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(b5.isSelected())
-					{
-						b1.setSelected(false);
-						b2.setSelected(false);
-						b3.setSelected(false);
-						b4.setSelected(false);
-						arr[2] = "c";
-					}
-			}
-			});
-	}
+        // Create a button group for the radio buttons
+        ButtonGroup buttonGroup = new ButtonGroup();
+
+        // Add the radio buttons with text wrapping and maximum width of 450
+        addRadioButton(buttonGroup, "<html>Accessing services</html>", 450, "c1");
+        addRadioButton(buttonGroup, "<html>Being accepted by society</html>", 450, "c2");
+        addRadioButton(buttonGroup, "<html>Accommodation for being different</html>", 450, "c3");
+        addRadioButton(buttonGroup, "<html>Celebrating neurodiversity</html>", 450, "c4");
+        addRadioButton(buttonGroup, "Other", 450, "c");
+
+        // Add the Next Question button
+        JButton btnNewButton = new JButton("Next Question");
+        btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                // Replace "q4" with the appropriate class for the next question
+                q4 thing = new q4(arr);
+                thing.setVisible(true);
+            }
+        });
+        GridBagConstraints buttonConstraints = new GridBagConstraints();
+        buttonConstraints.gridx = 0;
+        buttonConstraints.gridy = GridBagConstraints.RELATIVE; // This ensures it's placed below the previous component
+        buttonConstraints.gridwidth = 2;
+        buttonConstraints.fill = GridBagConstraints.HORIZONTAL;
+        getContentPane().add(btnNewButton, buttonConstraints);
+
+        pack();
+        setLocationRelativeTo(null); // Center the frame on the screen
+    }
+
+    private JLabel createWrappedLabel(String text, int maxWidth) {
+        JLabel label = new JLabel();
+        label.setVerticalAlignment(SwingConstants.TOP);
+        label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        label.setText("<html><div style='width:" + maxWidth + "px;'>" + text + "</div></html>");
+        return label;
+    }
+
+    private void addRadioButton(ButtonGroup buttonGroup, String text, int maxWidth, String value) {
+        JRadioButton radioButton = createWrappedRadioButton(text, maxWidth, value);
+        buttonGroup.add(radioButton);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        getContentPane().add(radioButton, gbc);
+    }
+
+    private JRadioButton createWrappedRadioButton(String text, int maxWidth, String value) {
+        JRadioButton radioButton = new JRadioButton();
+        radioButton.setVerticalAlignment(SwingConstants.TOP);
+        radioButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        radioButton.setText("<html><div style='width:" + maxWidth + "px;'>" + text + "</div></html>");
+
+        radioButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                arr[2] = value;
+            }
+        });
+
+        return radioButton;
+    }
 }

@@ -1,163 +1,102 @@
-import java.awt.EventQueue;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
-
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.imageio.ImageIO;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
+public class q1 extends JFrame {
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import javax.swing.SwingConstants;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JRadioButton;
+    private String[] arr;
 
+    public q1(String[] arr1) {
 
-public class q1 extends JFrame{
-	
-	private String[] arr;
-	
-	
-	public q1(String[] arr1) {
-		arr = arr1;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 400, 400);
-		getContentPane().setLayout(null);
-		
-		JRadioButton b1 = new JRadioButton("Self Advocate");
-		
-		
-		b1.setBounds(136, 110, 120, 23);
-		getContentPane().add(b1);
-		
-		JRadioButton b6 = new JRadioButton("Other");
-		b6.setBounds(136, 235, 120, 23);
-		getContentPane().add(b6);
-		
-		JButton btnNewButton = new JButton("Next Question");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				q2 thing = new q2(arr);
-				thing.setVisible(true);
-			}
-		});
-		btnNewButton.setBounds(116, 280, 150, 23);
-		getContentPane().add(btnNewButton);
-		
-		JLabel lblNewLabel = new JLabel("What is your primary relation to neurodiversity:");
-		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(41, 63, 300, 23);
-		getContentPane().add(lblNewLabel);
-		
-		JRadioButton b2 = new JRadioButton("Family Member");
-		b2.setBounds(136, 135, 120, 23);
-		getContentPane().add(b2);
-		
-		JRadioButton b3 = new JRadioButton("Researcher/Scholar");
-		b3.setBounds(136, 160, 212, 23);
-		getContentPane().add(b3);
-		
-		JRadioButton b4 = new JRadioButton("Policy Maker");
-		b4.setBounds(136, 185, 120, 23);
-		getContentPane().add(b4);
-		
-		JRadioButton b5 = new JRadioButton("General Public");
-		b5.setBounds(136, 210, 120, 23);
-		getContentPane().add(b5);
-		
+        //setLocation(parentFrame.getLocation()); // Set the location to match the parent frame (q1)
 
-		b1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(b1.isSelected())
-					{
-						b2.setSelected(false);
-						b3.setSelected(false);
-						b4.setSelected(false);
-						b6.setSelected(false);
-						arr[0] = "c1";
-					}
-			}
-			});
-		b2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(b2.isSelected())
-					{
-						b1.setSelected(false);
-						b3.setSelected(false);
-						b4.setSelected(false);
-						b6.setSelected(false);
-						arr[0] = "c2";
-					}
-			}
-			});
-		
-		
-		b3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(b3.isSelected())
-					{
-						b1.setSelected(false);
-						b2.setSelected(false);
-						b4.setSelected(false);
-						b6.setSelected(false);
-						arr[0] = "c3";
-					}
-			}
-			
-			});
-		b4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(b4.isSelected())
-					{
-						b1.setSelected(false); 
-						b2.setSelected(false);
-						b3.setSelected(false);
-						b6.setSelected(false);
-						arr[0] = "c4";
-					}
-			}
-			});
-		b6.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(b6.isSelected())
-					{
-						b1.setSelected(false);
-						b2.setSelected(false);
-						b3.setSelected(false);
-						b4.setSelected(false);
-						arr[0] = "c";
-					}
-			}
-			});
-	}
+        arr = arr1;
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+
+        // Add the question label with a maximum width of 450
+        JLabel lblNewLabel = createWrappedLabel("<html> <center>" + "1. What is your primary relation to neurodiversity?" + "</center></html>", 450);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        getContentPane().add(lblNewLabel, gbc);
+
+        // Create a button group for the radio buttons
+        ButtonGroup buttonGroup = new ButtonGroup();
+
+        // Add the radio buttons with text wrapping and maximum width of 450
+        JRadioButton radioButton1 = createWrappedRadioButton("Self Advocate", 450, "c1");
+        JRadioButton radioButton2 = createWrappedRadioButton("Family Member", 450, "c2");
+        JRadioButton radioButton3 = createWrappedRadioButton("Researcher/Scholar", 450, "c3");
+        JRadioButton radioButton4 = createWrappedRadioButton("Policy Maker", 450, "c4");
+        JRadioButton radioButton5 = createWrappedRadioButton("General Public/Other", 450, "c");
+
+        buttonGroup.add(radioButton1);
+        buttonGroup.add(radioButton2);
+        buttonGroup.add(radioButton3);
+        buttonGroup.add(radioButton4);
+        buttonGroup.add(radioButton5);
+
+        addRadioButton(radioButton1, gbc, 1);
+        addRadioButton(radioButton2, gbc, 2);
+        addRadioButton(radioButton3, gbc, 3);
+        addRadioButton(radioButton4, gbc, 4);
+        addRadioButton(radioButton5, gbc, 5);
+
+        // Add the Next Question button
+        JButton btnNewButton = new JButton("Next Question");
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                // Assuming "q3" is another class that you want to open
+                q2 thing = new q2(arr);
+                thing.setVisible(true);
+            }
+        });
+        getContentPane().add(btnNewButton, gbc);
+
+        pack(); // Automatically adjust the frame size based on components
+        setLocationRelativeTo(null); // Center the frame on the screen
+
+    }
+
+    private JLabel createWrappedLabel(String text, int maxWidth) {
+        JLabel label = new JLabel();
+        label.setVerticalAlignment(SwingConstants.TOP);
+        label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        label.setText("<html><div style='width:" + maxWidth + "px;'>" + text + "</div></html>");
+        return label;
+    }
+
+    private JRadioButton createWrappedRadioButton(String text, int maxWidth, String value) {
+        JRadioButton radioButton = new JRadioButton();
+        radioButton.setVerticalAlignment(SwingConstants.TOP);
+        radioButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        radioButton.setText("<html><div style='width:" + maxWidth + "px;'>" + text + "</div></html>");
+
+        radioButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                arr[1] = value;
+            }
+        });
+
+        return radioButton;
+    }
+
+    private void addRadioButton(JRadioButton radioButton, GridBagConstraints gbc, int gridY) {
+        gbc.gridx = 0;
+        gbc.gridy = gridY;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        getContentPane().add(radioButton, gbc);
+    }
 }

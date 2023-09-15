@@ -1,156 +1,90 @@
-import java.awt.EventQueue;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
-
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.imageio.ImageIO;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
+public class q11 extends JFrame {
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import javax.swing.SwingConstants;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JRadioButton;
+    private String[] arr;
 
+    public q11(String[] arr1) {
+        arr = arr1;
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new GridBagLayout());
 
-public class q11 extends JFrame{
-	
-	private String[] arr;
-	
-	
-	public q11(String[] arr1) {
-		arr = arr1;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 400, 400);
-		getContentPane().setLayout(null);
-		
-		JRadioButton b1 = new JRadioButton("<html>Meeting new people from around the world</html>");
-		
-		
-		b1.setBounds(70, 135, 287, 23);
-		getContentPane().add(b1);
-		
-		JRadioButton b2 = new JRadioButton("<html>Working with different kinds of researchers</html>");
-		b2.setBounds(70, 161, 287, 23);
-		getContentPane().add(b2);
-		
-		JRadioButton b3 = new JRadioButton("<html>Meeting families from Japan</html>");
-		b3.setBounds(70, 187, 240, 23);
-		getContentPane().add(b3);
-		
-		JButton btnNewButton = new JButton("Next Question");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				q12 thing = new q12(arr);
-				thing.setVisible(true);
-			}
-		});
-		btnNewButton.setBounds(116, 327, 150, 23);
-		getContentPane().add(btnNewButton);
-		
-		JRadioButton b4 = new JRadioButton("<html>Trying new foods</html>");
-		b4.setBounds(70, 213, 240, 23);
-		getContentPane().add(b4);
-		
-		JLabel lblNewLabel = new JLabel("<html><center>What was the most exciting or surprising aspect of this conference?</center></html>");
-		lblNewLabel.setBounds(91, 58, 200, 70);
-		getContentPane().add(lblNewLabel);
-		
-		JRadioButton b5 = new JRadioButton("Other");
-		b5.setBounds(70, 239, 109, 23);
-		getContentPane().add(b5);
-		
+        // Add the question label with a maximum width of 450
+        JLabel lblNewLabel = createWrappedLabel("<html><center>11. What was the most exciting or surprising aspect of this conference?</center></html>", 450);
+        GridBagConstraints labelConstraints = new GridBagConstraints();
+        labelConstraints.gridx = 0;
+        labelConstraints.gridy = 0;
+        labelConstraints.gridwidth = 2;
+        labelConstraints.fill = GridBagConstraints.HORIZONTAL;
+        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        getContentPane().add(lblNewLabel, labelConstraints);
 
-		b1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(b1.isSelected())
-					{
-						b2.setSelected(false);
-						b3.setSelected(false);
-						b4.setSelected(false);
-						b5.setSelected(false);
-						arr[10] = "c1";
-					}
-			}
-			});
-	
-		b2.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			if(b2.isSelected())
-				{
-					b1.setSelected(false);
-					b3.setSelected(false);
-					b4.setSelected(false);
-					b5.setSelected(false);
-					arr[10] = "c2";
-				}
-		}
-		});
-		
-		b3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(b3.isSelected())
-					{
-						b1.setSelected(false);
-						b2.setSelected(false);
-						b4.setSelected(false);
-						b5.setSelected(false);
-						arr[10] = "c3";
-					}
-			}
-			});
-		b4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(b4.isSelected())
-					{
-						b1.setSelected(false);
-						b2.setSelected(false);
-						b3.setSelected(false);
-						b5.setSelected(false);
-						arr[10] = "c4";
-					}
-			}
-			});
-		b5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(b5.isSelected())
-					{
-						b1.setSelected(false);
-						b2.setSelected(false);
-						b3.setSelected(false);
-						b4.setSelected(false);
-						arr[10] = "c";
-					}
-			}
-			});
-	}
+        // Create a button group for the radio buttons
+        ButtonGroup buttonGroup = new ButtonGroup();
+
+        // Add the radio buttons with text wrapping and maximum width of 450
+        addRadioButton(buttonGroup, "Meeting new people from around the world", 450, "c1");
+        addRadioButton(buttonGroup, "Working with different kinds of researchers", 450, "c2");
+        addRadioButton(buttonGroup, "Meeting families from Japan", 450, "c3");
+        addRadioButton(buttonGroup, "Trying new foods", 450, "c4");
+        addRadioButton(buttonGroup, "Other", 450, "c");
+
+        // Add the Next Question button
+        JButton btnNewButton = new JButton("Next Question");
+        btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                // Replace "q12" with the appropriate class for the next question
+                q12 thing = new q12(arr);
+                thing.setVisible(true);
+            }
+        });
+        GridBagConstraints buttonConstraints = new GridBagConstraints();
+        buttonConstraints.gridx = 0;
+        buttonConstraints.gridy = GridBagConstraints.RELATIVE; // This ensures it's placed below the previous component
+        buttonConstraints.gridwidth = 2;
+        buttonConstraints.fill = GridBagConstraints.HORIZONTAL;
+        getContentPane().add(btnNewButton, buttonConstraints);
+
+        pack(); // Automatically adjust the frame size based on components
+        setLocationRelativeTo(null); // Center the frame on the screen
+
+    }
+
+    private JLabel createWrappedLabel(String text, int maxWidth) {
+        JLabel label = new JLabel();
+        label.setVerticalAlignment(SwingConstants.TOP);
+        label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        label.setText("<html><div style='width:" + maxWidth + "px;'>" + text + "</div></html>");
+        return label;
+    }
+
+    private void addRadioButton(ButtonGroup buttonGroup, String text, int maxWidth, String value) {
+        JRadioButton radioButton = createWrappedRadioButton(text, maxWidth, value);
+        buttonGroup.add(radioButton);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = GridBagConstraints.RELATIVE; // Place it below the previous component
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        getContentPane().add(radioButton, gbc);
+    }
+
+    private JRadioButton createWrappedRadioButton(String text, int maxWidth, String value) {
+        JRadioButton radioButton = new JRadioButton();
+        radioButton.setVerticalAlignment(SwingConstants.TOP);
+        radioButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        radioButton.setText("<html><div style='width:" + maxWidth + "px;'>" + text + "</div></html>");
+
+        radioButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                arr[10] = value;
+            }
+        });
+
+        return radioButton;
+    }
 }

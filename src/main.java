@@ -38,7 +38,7 @@ import java.awt.GridLayout;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+//Project by Dr. LouAnne Boyd & Team
 
 public class main extends JFrame{
 	
@@ -51,6 +51,7 @@ public class main extends JFrame{
 					main frame = new main();
 					
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -68,6 +69,10 @@ public class main extends JFrame{
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				for(int i = 0; i < 12; i++)
+				{
+					arr[i] = " ";
+				}
 				dispose();
 				q1 thing = new q1(arr);
 				thing.setVisible(true);
